@@ -1,30 +1,33 @@
 import { Router, Request, Response } from 'express';
+// import { config } from './config';
 const path = require('path');
 const request = require('request');
 
 export const repos = Router();
 
-var internalUserRepos = require (path.resolve('data/repos.json'));
-
 var finalUserRepos = [];
+var internalUserRepos = require (path.resolve('data/repos.json'));
+var externalUserRepos = require (path.resolve('data/reposExternal.json'));
 
-internalUserRepos.forEach (function(a) {
+var mergedRepos = internalUserRepos.concat(externalUserRepos);
+
+mergedRepos.forEach (function(a) {
   if(a.fork === false){
-    console.log("success")
     finalUserRepos.push(a)
   }
-  console.log(finalUserRepos)
 });
 
-
-// const userRequest = (accessToken) => request ('https://api.github.com/users/silverorange/repos',(error, response, body) => {
-//     if (error){
-//       console.log("Error has occured")
-//     } else {
-//       var externalUserRepos = body;
-//       console.log(externalUserRepos);
-//     }
+// const userRequest = (accessToken) => request ('https://api.github.com/users/silverorange/repos', (error, response, body) => {  
+//   if(!error){
+//         var externalUserRepos = body;
+//         console.log(externalUserRepos);
+//         headers: { 'user-agent': 'node.js' }
+//   } else {
+//     console.log("Error detected")
+//   }
 // });
+
+
 
 repos.get('/', async (_: Request, res: Response) => {
   res.header('Cache-Control', 'no-store');
