@@ -5,7 +5,7 @@ import FetchUserData from './FetchUserData';
 export function App() {
   return (
     <div className="App">
-      <FetchUserData />
+      <FetchUserData repoName="JSON Example" />
     </div>
   );
 }

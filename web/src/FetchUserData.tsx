@@ -1,9 +1,13 @@
 import React from 'react';
 
-export default function FetchUserData() {
+interface UserData {
+  repoName: string;
+}
+
+export default function FetchUserData({ repoName }: UserData) {
   return (
     <>
-      <p>This is the users data </p>
+      <p>{repoName}</p>
     </>
   );
 }
